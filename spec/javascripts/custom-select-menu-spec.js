@@ -44,6 +44,31 @@ describe('Custom Select Menu', function () {
 
   });
 
+  describe('A label', function () {
+
+    it('is created', function () {
+      var newLabel = $('label');
+      expect(newLabel).toExist();
+    });
+
+    it('text is the same as the first option', function () {
+      var firstOption = $('select').find(':first').text(),
+          labelText   = $('div.custom-select-menu label').text();
+
+      expect(labelText).toEqual(firstOption);
+    });
+
+  });
+
+  describe('An unordered list', function () {
+
+    it('is created', function () {
+      var newList = $('div.custom-select-menu ul');
+      expect(newList).toExist();
+    });
+
+  })
+
   it('hides the original select element', function () {
     expect($('select')).toBeHidden();
   });
