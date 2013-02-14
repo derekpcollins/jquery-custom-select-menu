@@ -14,7 +14,6 @@ beforeEach(function() {
 
 afterEach(function () {
 
-  $('select').remove();
-  $('.custom-select-menu').remove();
+  $('select, .custom-select-menu, .foo-bar').remove();
 
 });
