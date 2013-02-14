@@ -11,3 +11,10 @@ beforeEach(function() {
   $('select').customSelectMenu();
 
 });
+
+afterEach(function () {
+
+  $('select').remove();
+  $('.custom-select-menu').remove();
+
+});
