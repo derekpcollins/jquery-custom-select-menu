@@ -1,0 +1,44 @@
+<!DOCTYPE />
+<html>
+  <head>
+    <title>Custom Select Menu Plugin - jQuery</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <form id="my-form">
+        <select name="first-menu">
+          <option>Choose one...</option>
+          <option value="one">One</option>
+          <option value="two">Two</option>
+          <option value="three">Three</option>
+          <option value="four">Four</option>
+          <option value="five">Five</option>
+          <option value="six">Six</option>
+          <option value="seven">Seven</option>
+          <option value="eight">Eight</option>
+          <option value="nine">Nine</option>
+          <option value="ten">Ten</option>
+        </select>
+      </form>
+
+      <form id="my-form-2">
+        <select name="second-menu">
+          <option value="a">A</option>
+          <option value="b" selected="selected">B</option>
+          <option value="c">C</option>
+        </select>
+      </form>
+
+    </div>
+
+    <script src="jquery-1.9.1.js"></script>
+    <script src="custom-select-menu.jquery.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('select').customSelectMenu();
+      });
+    </script>
+  </body>
+</html>
