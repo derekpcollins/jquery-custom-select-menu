@@ -9,7 +9,7 @@ describe('Custom Select Menu', function () {
   it('creates a wrapper div', function () {
     var wrapperDiv = $('div');
     $('select').customSelectMenu();
-    expect(wrapperDiv).toBeTruthy();
+    expect(wrapperDiv).toExist();
   });
 
 });

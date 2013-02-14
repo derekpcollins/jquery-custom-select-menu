@@ -6,19 +6,4 @@ beforeEach(function() {
     $('<option value="' + i + '">' + i + '</option>').appendTo('select');
   };
 
-  this.addMatchers({
-    toBeHidden: function() {
-      var isHidden = true;
-
-      this.actual.find('select').each(function () {
-        isHidden = $(this).is(':visible');
-        if (!isHidden) {
-          return;
-        }
-      });
-
-      return isHidden;
-    }
-  });
-
 });
