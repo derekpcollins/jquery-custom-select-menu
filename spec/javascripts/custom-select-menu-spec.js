@@ -1,14 +1,16 @@
 describe('Custom Select Menu', function () {
 
   it('hides the original select element', function () {
-    var originalSelect = $('select');
-    originalSelect.customSelectMenu();
-    expect(originalSelect).toBeHidden();
+    expect($('select')).toBeHidden();
+  });
+
+  it('creates a hidden input', function () {
+    var hiddenInput = $('input:hidden');
+    expect(hiddenInput).toExist();
   });
 
   it('creates a wrapper div', function () {
     var wrapperDiv = $('div');
-    $('select').customSelectMenu();
     expect(wrapperDiv).toExist();
   });
 
