@@ -6,4 +6,10 @@ describe('Custom Select Menu', function () {
     expect(originalSelect).toBeHidden();
   });
 
+  it('creates a wrapper div', function () {
+    var wrapperDiv = $('div');
+    $('select').customSelectMenu();
+    expect(wrapperDiv).toBeTruthy();
+  });
+
 });

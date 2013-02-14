@@ -11,7 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-    - public/javascripts/lib/jquery-1.9.1.js
+    - public/javascripts/vendor/jquery-1.9.1.js
+    - public/javascripts/vendor/jasmine-jquery.js
     - public/javascripts/**/*.js
 
 # stylesheets

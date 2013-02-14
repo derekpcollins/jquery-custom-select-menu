@@ -22,9 +22,3 @@ beforeEach(function() {
   });
 
 });
-
-afterEach( function () {
-
-  //$('select').remove();
-  
-});
