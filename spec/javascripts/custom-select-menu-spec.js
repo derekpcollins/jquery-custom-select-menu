@@ -1,13 +1,12 @@
-describe('custom-select-menu', function () {
+describe('Custom Select Menu', function () {
 
   beforeEach( function () {
     $('<select name="select-menu-1"></select>').appendTo('body');
-    for (var i=0; i < 10; i++) {
-      $('<option>Choose one...</option>').append('<option value="one">One</option>').append('<option value="two">Two</option>').append('<option value="three">Three</option>').append('<td></td>').appendTo('select');
+    $('<option>Choose one...</option>').appendTo('select');
+    for (var i=1; i < 4; i++) {
+      $('<option value="' + i + '">' + i + '</option>').appendTo('select');
     };
-  });
 
-  beforeEach( function () {
     this.addMatchers({
       toBeHidden: function() {
         var isHidden = true;
@@ -24,11 +23,11 @@ describe('custom-select-menu', function () {
     });
   });
 
-  afterEach(function () {
+  afterEach( function () {
     $('select').remove();
   });
 
-  it('should hide the original select', function () {
+  it('hides the original select element', function () {
     var originalSelect = $('select');
     originalSelect.customSelectMenu();
     expect(originalSelect).toBeHidden();

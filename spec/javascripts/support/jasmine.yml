@@ -11,6 +11,7 @@
 #   - dist/**/*.js
 #
 src_files:
+    - public/javascripts/lib/jquery-1.9.1.js
     - public/javascripts/**/*.js
 
 # stylesheets
