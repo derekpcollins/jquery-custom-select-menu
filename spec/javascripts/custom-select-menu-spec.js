@@ -1,4 +1,4 @@
-describe('Custom Select Menu', function () {
+describe('custom-select-menu', function () {
 
   beforeEach( function () {
     $('<select name="select-menu-1"></select>').appendTo('body');
