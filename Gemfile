@@ -1,3 +1,3 @@
-source 'http://rubgems.org'
+source 'https://rubygems.org'
 
 gem 'jasmine'
