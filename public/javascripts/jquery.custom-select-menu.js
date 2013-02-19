@@ -33,6 +33,10 @@
       var newLabel = $('<label>' + createLabel + '</label>');
 
       newLabel.click(function(){
+        // Hide all custom select menus
+        //$('.custom-select-menu ul').css('display', 'none');
+        $('.custom-select-menu ul').hide();
+
         $(this).toggleClass('opened');
         $(this).parent().find('ul').toggle();
       });
