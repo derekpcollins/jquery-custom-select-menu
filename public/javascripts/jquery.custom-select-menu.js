@@ -10,58 +10,58 @@
     // BUILD THE MENU
     return this.each(function() {
 
-      var selectName = $(this).attr('name'), /* Get the name of the menu */
+      var selectName = $(this).attr( 'name' ), /* Get the name of the menu */
           newOption = '',
           createLabel = '';
 
       // Create a hidden input field so we can keep track of which option they choose
-      $(this).after('<input type="hidden" name="' + selectName + '" id="input-' + selectName + '" value="" />');
+      $(this).after( '<input type="hidden" name="' + selectName + '" value="" />' );
 
       // Create a div to contain the custom menu...
-      var newContainer = $('<div class="' + settings.customMenuClassName + '"></div>');
+      var newContainer = $( '<div class="' + settings.customMenuClassName + '"></div>' );
 
       // Set up the first selected option
-      if($(this).find(':selected')) {
+      if($(this).find( ':selected' )) {
         // If there is an option that has specifically been selected...
-        createLabel = $(this).find(':selected').text();
+        createLabel = $(this).find( ':selected' ).text();
       } else {
         // Otherwise just get the first option...
-        createLabel = $(this).find(':first').text();
+        createLabel = $(this).find( ':first' ).text();
       }
 
       // Create a label to show the selected or first option...
-      var newLabel = $('<label>' + createLabel + '</label>');
+      var newLabel = $( '<label>' + createLabel + '</label>' );
 
       newLabel.click(function(){
         // Hide all other custom select menus
-        $('.custom-select-menu ul').not($(this).parent().find('ul')).hide();
-        $('.custom-select-menu .opened').not($(this)).removeClass('opened');
+        $('.custom-select-menu ul').not($(this).parent().find( 'ul' )).hide();
+        $('.custom-select-menu .opened').not($(this)).removeClass( 'opened' );
 
-        $(this).toggleClass('opened');
-        $(this).parent().find('ul').toggle();
+        $(this).toggleClass( 'opened' );
+        $(this).parent().find( 'ul' ).toggle();
       });
 
       // Append an unordered list to contain the custom menu options
       // The unordered list is hidden by default
-      var newList = $('<ul data-select-name="' + selectName + '">');
+      var newList = $( '<ul data-select-name="' + selectName + '">' );
       newList.hide();
 
       // Add the custom select menu container to the DOM after the original select menu
-      $(this).after(newContainer.append(newLabel, newList));
+      $(this).after( newContainer.append(newLabel, newList) );
 
       // Loop through all the options and create li's to append to the custom menu
-      $(this).find('option').each(function(){
+      $(this).find( 'option' ).each(function(){
         optionName = $(this).text();
         optionValue = $(this).val();
         markSelected = (optionName == createLabel) ? ' class="selected"' : '';
 
-        newOption = $('<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>');
+        newOption = $( '<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>' );
 
         newOption.click(function(){
           // Set up some vars...
           var customMenuName    = $(this).parent().attr( 'data-select-name' ), /* Get the id of the menu */
-          customOptionValue = $(this).attr( 'data-option-value' ), /* Get the option value */
-          customOptionText  = $(this).text(); /* Get the option text (for the label) */
+              customOptionValue = $(this).attr( 'data-option-value' ), /* Get the option value */
+              customOptionText  = $(this).text(); /* Get the option text (for the label) */
 
           // Remove 'selected' class from currently selected option
           $(this).parent().find( '.selected' ).removeClass( 'selected' );
@@ -70,9 +70,10 @@
           $(this).addClass( 'selected' );
 
           // Pass the value to the hidden input
-          $('#input-' + customMenuName).val( customOptionValue );
+          $('input[name="' + customMenuName + '"]').val( customOptionValue );
+          //$('#input-' + customMenuName).val( customOptionValue );
 
-          // Updated the label
+          // Update the label
           $(this).parent().parent().find( 'label' ).text( customOptionText );
 
           // Close the menu
