@@ -3,7 +3,7 @@ describe('Custom Select Menu', function () {
   beforeEach(function() {
     
     // Create a select element
-    $('<select name="select-menu-1"></select>').appendTo('body');
+    $('<select name="select-menu-1" tabindex="1"></select>').appendTo('body');
     $('<option>Choose one...</option>').appendTo('select');
     for (var i=1; i < 4; i++) {
       $('<option value="' + i + '">' + i + '</option>').appendTo('select');
@@ -105,6 +105,15 @@ describe('Custom Select Menu', function () {
           labelText   = $('div.custom-select-menu label').text();
 
       expect(labelText).toEqual(firstOption);
+    });
+
+    it('inherits tabindex from the original select menu', function () {
+      var originalTabindex = $('select').attr('tabindex');
+
+      if(originalTabindex) {
+        var newLabelTabindex = $('div.custom-select-menu label').attr('tabindex');
+        expect(originalTabindex).toEqual(newLabelTabindex);
+      }
     });
 
   });

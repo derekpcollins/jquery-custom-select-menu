@@ -10,10 +10,11 @@
     // BUILD THE MENU
     return this.each(function() {
 
-      var selectName  = $(this).attr( 'name' ), /* Get the name of the menu */
-          newOption   = '',
-          labelText   = '',
-          newLabel    = '';
+      var selectName     = $(this).attr( 'name' ), /* Get the name of the menu */
+          selectTabindex = $(this).attr( 'tabindex' ), /* Get the tabindex of the menu */
+          newOption      = '',
+          labelText      = '',
+          newLabel       = '';
 
       // Create a div to contain the custom menu...
       var newContainer = $( '<div class="' + settings.customMenuClassName + '"></div>' );
@@ -51,9 +52,13 @@
         $(this).after( '<input type="hidden" name="' + selectName + '" value="" />' );
       }
 
-      // Create a label to show the selected or first option...
-      //var newLabel = $( '<label>' + createLabel + '</label>' );
+      // If a tabindex attribute exists on the select menu,
+      // pass that to our label
+      if(selectTabindex) {
+        newLabel.attr('tabindex', selectTabindex);
+      }
 
+      // Create a label to show the selected or first option...
       newLabel.click(function(){
         // Hide all other custom select menus
         $('.custom-select-menu ul').not($(this).parent().find( 'ul' )).hide();
@@ -73,8 +78,8 @@
 
       // Loop through all the options and create li's to append to the custom menu
       $(this).find( 'option' ).each(function(){
-        optionName = $(this).text();
-        optionValue = $(this).attr('value');
+        optionName   = $(this).text();
+        optionValue  = $(this).attr('value');
         markSelected = (optionName == labelText) ? ' class="selected"' : '';
 
         // Make sure we have a value before setting one on the newOption
