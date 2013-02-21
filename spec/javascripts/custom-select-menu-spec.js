@@ -1,5 +1,32 @@
 describe('Custom Select Menu', function () {
 
+  beforeEach(function() {
+    
+    // Create a select element
+    $('<select name="select-menu-1"></select>').appendTo('body');
+    $('<option>Choose one...</option>').appendTo('select');
+    for (var i=1; i < 4; i++) {
+      $('<option value="' + i + '">' + i + '</option>').appendTo('select');
+    };
+
+    // Create another select element
+    $('<select name="some[non-standard][id_here]"></select>').appendTo('body');
+    $('<option>Choose one...</option>').appendTo('select');
+    for (var i=5; i < 8; i++) {
+      $('<option value="' + i + '">' + i + '</option>').appendTo('select');
+    };
+
+    // Initialize the plugin
+    $('select').customSelectMenu();
+
+  });
+
+  afterEach(function () {
+
+    $('select, .custom-select-menu, .foo-bar').remove();
+
+  });
+
   describe('An input element', function() {
 
     it('is created', function () {
@@ -17,6 +44,28 @@ describe('Custom Select Menu', function () {
           hiddenInputName    = $('input:hidden').attr('name');
 
       expect(hiddenInputName).toEqual(originalSelectName);
+    });
+
+    it('has a value if an option is set to "selected"', function () {
+      var hiddenInputValue = $('input:hidden').val(),
+          originalSelectedOptionValue = $('option:selected').attr('value'),
+          newSelectedOptionValue = $('li.selected').attr('data-option-value');
+
+      if( originalSelectedOptionValue ) {
+        expect(originalSelectedOptionValue).toEqual(newSelectedOptionValue);
+        expect(hiddenInputValue).toEqual(newSelectedOptionValue);
+      }
+    });
+
+    it('does not have a value if an option is not set to "selected"', function () {
+      var hiddenInputValue = $('input:hidden').val(),
+          originalSelectedOptionValue = $('option:selected').attr('value'),
+          newSelectedOptionValue = $('li.selected').attr('data-option-value');
+
+      if( !originalSelectedOptionValue ) {
+        expect(originalSelectedOptionValue).toEqual(undefined);
+        expect(hiddenInputValue).toEqual('');
+      }
     });
 
   });
