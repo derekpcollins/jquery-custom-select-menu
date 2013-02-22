@@ -78,7 +78,7 @@
       newList.hide();
 
       // Add the custom select menu container to the DOM after the original select menu
-      $(this).after( newContainer.append(newLabel, newList) );
+      $(this).after( newContainer.append( newLabel, newList ) );
 
       // Loop through all the options and create li's to append to the custom menu
       $(this).find( 'option' ).each(function(){

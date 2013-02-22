@@ -26,9 +26,13 @@ body {
 }
 
 .custom-select-menu {
+  display: inline-block;
   margin-bottom: 8px;
-  outline: none;
+  /*outline: none;*/
   position: relative;
+}
+.custom-select-menu:focus label {
+  border-color: red;
 }
 .custom-select-menu label {
   border: 2px solid #333;
