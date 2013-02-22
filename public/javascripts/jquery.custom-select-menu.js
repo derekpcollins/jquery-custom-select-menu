@@ -134,6 +134,14 @@
       // Hide the original select menu
       $(this).hide();
 
+      // Pressing esc closes the menu
+      $('html').keyup(function( e ) {
+        if( e.keyCode == 27 ) {
+          newLabel.removeClass( 'opened' );
+          newList.hide();
+        }
+      });
+
       // Hide the menu if you click outside of it
       // Source: http://forum.jquery.com/topic/close-toggled-div-when-clicking-outside-of-it
       $('html').mousedown(function( event ) {
