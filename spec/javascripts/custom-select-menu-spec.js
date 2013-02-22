@@ -91,6 +91,15 @@ describe('Custom Select Menu', function () {
       expect(wrapperDiv).toExist();
     });
 
+    it('inherits tabindex from the original select menu', function () {
+      var originalTabindex = $('select').attr('tabindex');
+
+      if(originalTabindex) {
+        var newLabelTabindex = $('div.custom-select-menu').attr('tabindex');
+        expect(originalTabindex).toEqual(newLabelTabindex);
+      }
+    });
+
   });
 
   describe('A label', function () {
@@ -105,15 +114,6 @@ describe('Custom Select Menu', function () {
           labelText   = $('div.custom-select-menu label').text();
 
       expect(labelText).toEqual(firstOption);
-    });
-
-    it('inherits tabindex from the original select menu', function () {
-      var originalTabindex = $('select').attr('tabindex');
-
-      if(originalTabindex) {
-        var newLabelTabindex = $('div.custom-select-menu label').attr('tabindex');
-        expect(originalTabindex).toEqual(newLabelTabindex);
-      }
     });
 
   });

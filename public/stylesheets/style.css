@@ -27,6 +27,7 @@ body {
 
 .custom-select-menu {
   margin-bottom: 8px;
+  outline: none;
   position: relative;
 }
 .custom-select-menu label {

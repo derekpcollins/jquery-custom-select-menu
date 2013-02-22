@@ -53,16 +53,20 @@
       }
 
       // If a tabindex attribute exists on the select menu,
-      // pass that to our label
+      // pass that to our container div
       if(selectTabindex) {
-        newLabel.attr('tabindex', selectTabindex);
+        // Add it to the div
+        newContainer.attr( 'tabindex', selectTabindex );
+
+        // Remove the tabindex from the original select menu
+        $(this).removeAttr( 'tabindex' );
       }
 
       // Create a label to show the selected or first option...
       newLabel.click(function(){
         // Hide all other custom select menus
-        $('.custom-select-menu ul').not($(this).parent().find( 'ul' )).hide();
-        $('.custom-select-menu .opened').not($(this)).removeClass( 'opened' );
+        $('.' + settings.customMenuClassName + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
+        $('.' + settings.customMenuClassName + ' .opened').not( $(this) ).removeClass( 'opened' );
 
         $(this).toggleClass( 'opened' );
         $(this).parent().find( 'ul' ).toggle();
@@ -135,6 +139,8 @@
       $('html').mousedown(function( event ) {
         var target = $(event.target);
 
+        // NOTE: addBack() requires jQuery 1.8 and later
+        // (you might be able to use andSelf() for < 1.8, but it has been deprecated)
         if ( !target.parents().addBack().is( '.' + settings.customMenuClassName + ' ul, .' + settings.customMenuClassName + ' label' ) ) {
           // Clicked outside
           $('.' + settings.customMenuClassName + ' label').removeClass( 'opened' );
