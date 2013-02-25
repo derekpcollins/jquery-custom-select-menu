@@ -10,7 +10,6 @@
     return this.each(function() {
 
       var selectName     = $(this).attr( 'name' ), /* Get the name of the menu */
-          //selectTabindex = $(this).attr( 'tabindex' ), /* Get the tabindex of the menu */
           newOption      = '',
           labelText      = '',
           newLabel       = '';
@@ -55,7 +54,7 @@
       // (arrow key navigation, etc. won't work without this)
       // Source: http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
       newContainer.attr( 'tabindex', 0 );
-      
+
       // Remove the tabindex from the original select menu
       $(this).removeAttr( 'tabindex' );
 
