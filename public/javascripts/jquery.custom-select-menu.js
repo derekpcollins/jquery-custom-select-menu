@@ -51,20 +51,11 @@
         $(this).after( '<input type="hidden" name="' + selectName + '" value="" />' );
       }
 
-      // If a tabindex attribute exists on the select menu,
-      // pass that to our container div
-      /*if(selectTabindex) {
-        // Add it to the div
-        newContainer.attr( 'tabindex', selectTabindex );
-
-        // Remove the tabindex from the original select menu
-        $(this).removeAttr( 'tabindex' );
-      }*/
-
       // Give the container div a tabindex of 0 so that it can have focus
       // (arrow key navigation, etc. won't work without this)
       // Source: http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
       newContainer.attr( 'tabindex', 0 );
+      
       // Remove the tabindex from the original select menu
       $(this).removeAttr( 'tabindex' );
 
