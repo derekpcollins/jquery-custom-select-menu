@@ -28,11 +28,8 @@ body {
 .custom-select-menu {
   display: inline-block;
   margin-bottom: 8px;
-  /*outline: none;*/
+  outline: none;
   position: relative;
-}
-.custom-select-menu:focus label {
-  border-color: red;
 }
 .custom-select-menu label {
   border: 2px solid #333;
@@ -61,6 +58,9 @@ body {
 .custom-select-menu label.opened {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+.custom-select-menu:focus label {
+  border-color: orange;
 }
 .custom-select-menu ul {
   background: #fff;

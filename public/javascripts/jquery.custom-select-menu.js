@@ -7,11 +7,10 @@
       customMenuClassName : 'custom-select-menu' /* The class name for the custom select menu div */
     }, options);
 
-    // BUILD THE MENU
     return this.each(function() {
 
       var selectName     = $(this).attr( 'name' ), /* Get the name of the menu */
-          selectTabindex = $(this).attr( 'tabindex' ), /* Get the tabindex of the menu */
+          //selectTabindex = $(this).attr( 'tabindex' ), /* Get the tabindex of the menu */
           newOption      = '',
           labelText      = '',
           newLabel       = '';
@@ -54,13 +53,20 @@
 
       // If a tabindex attribute exists on the select menu,
       // pass that to our container div
-      if(selectTabindex) {
+      /*if(selectTabindex) {
         // Add it to the div
         newContainer.attr( 'tabindex', selectTabindex );
 
         // Remove the tabindex from the original select menu
         $(this).removeAttr( 'tabindex' );
-      }
+      }*/
+
+      // Give the container div a tabindex of 0 so that it can have focus
+      // (arrow key navigation, etc. won't work without this)
+      // Source: http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
+      newContainer.attr( 'tabindex', 0 );
+      // Remove the tabindex from the original select menu
+      $(this).removeAttr( 'tabindex' );
 
       // Create a label to show the selected or first option...
       newLabel.click(function(){
@@ -94,38 +100,7 @@
         }
 
         newOption.click(function(){
-          // Set up some vars...
-          var customMenuName    = $(this).parent().attr( 'data-select-name' ), /* Get the id of the menu */
-              customOptionValue = $(this).attr( 'data-option-value' ), /* Get the option value */
-              customOptionText  = $(this).text(), /* Get the option text (for the label) */
-              hiddenInput       = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */
-
-          // Remove 'selected' class from currently selected option
-          $(this).parent().find( '.selected' ).removeClass( 'selected' );
-
-          // Add a class of 'selected' to the option
-          $(this).addClass( 'selected' );
-
-          // Pass the value to the hidden input
-          hiddenInput.val( customOptionValue );
-          //$('#input-' + customMenuName).val( customOptionValue );
-
-          // Update the label
-          $(this).parent().parent().find( 'label' ).text( customOptionText );
-
-          // If the hidden input value isn't empty,
-          // then give the label a class of selection-made
-          if(hiddenInput.val() != '') {
-            $(this).parent().parent().find( 'label' ).addClass( 'selection-made' );
-          } else {
-            $(this).parent().parent().find( 'label' ).removeClass( 'selection-made' );
-          }
-
-          // Close the menu
-          $(this).parent().hide();
-
-          // Toggle the opened class on the label
-          $(this).parent().parent().find( 'label' ).toggleClass( 'opened' );
+          updateMenu( $(this) );
         });
 
         newList.append(newOption);
@@ -134,11 +109,59 @@
       // Hide the original select menu
       $(this).hide();
 
+      // Use arrows keys to navigation the menu
+      newContainer.keyup(function( e ) {
+        // Arrows keys open the menu
+        if( e.keyCode == 38 || e.keyCode == 40 ) {
+          $(this).find(newLabel).addClass( 'opened' );
+          $(this).find(newList).show();
+        }
+
+        var li = $(this).find('li'),
+            selectedLi = $(this).find('.selected'),
+            selectedLiText = selectedLi.text(),
+            nextLi = '',
+            prevLi = '';
+
+        if( e.keyCode == 40 ) {
+          selectedLi.removeClass('selected');
+          nextLi = selectedLi.next();
+          if( nextLi.length > 0 ) {
+            nextLi.addClass('selected');
+          } else {
+            li.first().addClass('selected');
+          }
+        }
+
+        if( e.keyCode == 38 ) {
+          selectedLi.removeClass('selected');
+          prevLi = selectedLi.prev();
+          if( prevLi.length > 0 ) {
+            prevLi.addClass('selected');
+          } else {
+            li.last().addClass('selected');
+          }
+        }
+
+        // Pressing return/enter updates and closes the menu
+        if( e.keyCode == 13 ) {
+          updateMenu( $(this).find('.selected') );
+        }
+      });
+
       // Pressing esc closes the menu
       $('html').keyup(function( e ) {
         if( e.keyCode == 27 ) {
           newLabel.removeClass( 'opened' );
           newList.hide();
+        }
+      });
+
+      // If the container div loses focus and the menu is visible, close it
+      newContainer.blur( function() {
+        if( $(this).find(newList).is(':visible') ) {
+          $(this).find(newLabel).removeClass( 'opened' );
+          $(this).find(newList).hide();
         }
       });
 
@@ -157,6 +180,42 @@
       });
 
     });
+
+    function updateMenu( selection ) {
+      // Whenever you click on a menu item or press return/enter, we need to update a few things...
+      // Set up some vars...
+      var customMenuName    = selection.parent().attr( 'data-select-name' ), /* Get the id of the menu */
+          customOptionValue = selection.attr( 'data-option-value' ), /* Get the option value */
+          customOptionText  = selection.text(), /* Get the option text (for the label) */
+          hiddenInput       = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */
+
+      // Remove 'selected' class from currently selected option
+      selection.parent().find( '.selected' ).removeClass( 'selected' );
+
+      // Add a class of 'selected' to the option
+      selection.addClass( 'selected' );
+
+      // Pass the value to the hidden input
+      hiddenInput.val( customOptionValue );
+      //$('#input-' + customMenuName).val( customOptionValue );
+
+      // Update the label
+      selection.parent().parent().find( 'label' ).text( customOptionText );
+
+      // If the hidden input value isn't empty,
+      // then give the label a class of selection-made
+      if(hiddenInput.val() != '') {
+        selection.parent().parent().find( 'label' ).addClass( 'selection-made' );
+      } else {
+        selection.parent().parent().find( 'label' ).removeClass( 'selection-made' );
+      }
+
+      // Close the menu
+      selection.parent().hide();
+
+      // Toggle the opened class on the label
+      selection.parent().parent().find( 'label' ).toggleClass( 'opened' );
+    }
 
   };
 
