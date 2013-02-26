@@ -43,7 +43,15 @@ describe('Custom Select Menu', function() {
     it('gets a class of opened on click', function() {
       $('.custom-select-menu label').click();
       var labelClass = $('.custom-select-menu label').attr( 'class' );
-      expect( labelClass ).toEqual( 'opened' );
+      expect( labelClass ).toContain( 'opened' );
+    });
+
+    it('gets a class of selection made when an option is selected', function() {
+      var listItem = $('.custom-select-menu li[data-option-value="red"]');
+      listItem.click();
+      var labelClass = $('.custom-select-menu label').attr( 'class' );
+      console.log( labelClass );
+      expect( labelClass ).toContain( 'selection-made' );
     });
 
   });
@@ -187,7 +195,8 @@ describe('Custom Select Menu', function() {
   /*
    * TODO:
    * Test that arrow keys select the li's
-   * Test selection-made class name
+   * Test for selection on return/enter
+   * Test that menu closes when selection is made
    */
 
 });
@@ -197,25 +206,34 @@ describe('Custom Select Menu Options', function() {
   beforeEach(function() {
     loadFixtures('select-menu.html');
     $('select').customSelectMenu( {
-      customMenuClassName     : 'my-menu',
-      menuOpenedClassName     : 'shown',
-      optionSelectedClassName : 'active'
+      menuClass          : 'my-menu',
+      openedClass        : 'shown',
+      selectedClass      : 'active',
+      selectionMadeClass : 'has-been-selected'
     } );
   });
 
-  it('takes an optional class name for the container div', function() {
+  it('allows for an optional class name for the container div', function() {
     expect( $('div.my-menu') ).toExist();
   });
 
-  it('takes an optional class name for opened', function() {
+  it('allows for an optional class name for opened', function() {
     $('.my-menu label').click();
     expect( $('.my-menu label').attr('class') ).toEqual( 'shown' );
   });
 
-  it('takes an optional class name for selected', function() {
+  it('allows for an optional class name for selected', function() {
     var listItem = $('.my-menu li[data-option-value="red"]');
     listItem.click();
 
     expect( listItem.attr( 'class' ) ).toEqual( 'active' );
+  });
+
+  it('allows for an optional class name for selection-made', function() {
+    var listItem = $('.my-menu li[data-option-value="red"]');
+    listItem.click();
+    var labelClass = $('.my-menu label').attr( 'class' );
+    console.log( labelClass );
+    expect( labelClass ).toContain( 'has-been-selected' );
   });
 });
