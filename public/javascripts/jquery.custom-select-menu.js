@@ -4,7 +4,10 @@
   
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
-      customMenuClassName : 'custom-select-menu' /* The class name for the custom select menu div */
+      customMenuClassName     : 'custom-select-menu', /* The class name for the custom select menu div */
+      menuOpenedClassName     : 'opened',
+      selectionMadeClassName  : 'selection-made',
+      optionSelectedClassName : 'selected'
     }, options);
 
     return this.each(function() {
@@ -46,7 +49,7 @@
         if( !selectedOptionValue ) {
           newLabel = $( '<label>' + labelText + '</label>' );
         } else {
-          newLabel = $( '<label class="selection-made">' + labelText + '</label>' );
+          newLabel = $( '<label class="' + settings.selectionMadeClassName + '">' + labelText + '</label>' );
           
           // Add the selected option value to the hidden input
           newHiddenInput.val( selectedOptionValue );
@@ -66,9 +69,9 @@
       newLabel.click(function(){
         // Hide all other custom select menus
         $('.' + settings.customMenuClassName + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
-        $('.' + settings.customMenuClassName + ' .opened').not( $(this) ).removeClass( 'opened' );
+        $('.' + settings.customMenuClassName + ' .' + settings.menuOpenedClassName).not( $(this) ).removeClass( settings.menuOpenedClassName );
 
-        $(this).toggleClass( 'opened' );
+        $(this).toggleClass( settings.menuOpenedClassName );
         $(this).parent().find( 'ul' ).toggle();
       });
 
@@ -85,7 +88,7 @@
       $(this).find( 'option' ).each(function(){
         optionName   = $(this).text();
         optionValue  = $(this).attr('value');
-        markSelected = (optionName == labelText) ? ' class="selected"' : '';
+        markSelected = (optionName == labelText) ? ' class="' + settings.optionSelectedClassName + '"' : '';
 
         // Make sure we have a value before setting one on the newOption
         if( !optionValue ) {
@@ -105,46 +108,46 @@
       newContainer.keyup(function( e ) {
         // Arrows keys open the menu
         if( e.keyCode == 38 || e.keyCode == 40 ) {
-          $(this).find(newLabel).addClass( 'opened' );
+          $(this).find(newLabel).addClass( settings.menuOpenedClassName );
           $(this).find(newList).show();
         }
 
         var li = $(this).find('li'),
-            selectedLi = $(this).find('.selected'),
+            selectedLi = $(this).find( '.' + settings.optionSelectedClassName ),
             selectedLiText = selectedLi.text(),
             nextLi = '',
             prevLi = '';
 
         if( e.keyCode == 40 ) {
-          selectedLi.removeClass('selected');
+          selectedLi.removeClass( settings.optionSelectedClassName );
           nextLi = selectedLi.next();
           if( nextLi.length > 0 ) {
-            nextLi.addClass('selected');
+            nextLi.addClass( settings.optionSelectedClassName );
           } else {
-            li.first().addClass('selected');
+            li.first().addClass( settings.optionSelectedClassName );
           }
         }
 
         if( e.keyCode == 38 ) {
-          selectedLi.removeClass('selected');
+          selectedLi.removeClass( settings.optionSelectedClassName );
           prevLi = selectedLi.prev();
           if( prevLi.length > 0 ) {
-            prevLi.addClass('selected');
+            prevLi.addClass( settings.optionSelectedClassName );
           } else {
-            li.last().addClass('selected');
+            li.last().addClass( settings.optionSelectedClassName );
           }
         }
 
         // Pressing return/enter updates and closes the menu
         if( e.keyCode == 13 ) {
-          updateMenu( $(this).find('.selected') );
+          updateMenu( $(this).find('.' + settings.optionSelectedClassName) );
         }
       });
 
       // Pressing esc closes the menu
       $('html').keyup(function( e ) {
         if( e.keyCode == 27 ) {
-          newLabel.removeClass( 'opened' );
+          newLabel.removeClass( settings.menuOpenedClassName );
           newList.hide();
         }
       });
@@ -152,7 +155,7 @@
       // If the container div loses focus and the menu is visible, close it
       newContainer.blur( function() {
         if( $(this).find(newList).is(':visible') ) {
-          $(this).find(newLabel).removeClass( 'opened' );
+          $(this).find(newLabel).removeClass( settings.menuOpenedClassName );
           $(this).find(newList).hide();
         }
       });
@@ -166,7 +169,7 @@
         // (you might be able to use andSelf() for < 1.8, but it has been deprecated)
         if ( !target.parents().addBack().is( '.' + settings.customMenuClassName + ' ul, .' + settings.customMenuClassName + ' label' ) ) {
           // Clicked outside
-          $('.' + settings.customMenuClassName + ' label').removeClass( 'opened' );
+          $('.' + settings.customMenuClassName + ' label').removeClass( settings.menuOpenedClassName );
           $('.' + settings.customMenuClassName + ' ul').hide();
         }
       });
@@ -182,10 +185,10 @@
           hiddenInput       = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */
 
       // Remove 'selected' class from currently selected option
-      selection.parent().find( '.selected' ).removeClass( 'selected' );
+      selection.parent().find( '.' + settings.optionSelectedClassName ).removeClass( settings.optionSelectedClassName );
 
       // Add a class of 'selected' to the option
-      selection.addClass( 'selected' );
+      selection.addClass( settings.optionSelectedClassName );
 
       // Pass the value to the hidden input
       hiddenInput.val( customOptionValue );
@@ -197,16 +200,16 @@
       // If the hidden input value isn't empty,
       // then give the label a class of selection-made
       if(hiddenInput.val() != '') {
-        selection.parent().parent().find( 'label' ).addClass( 'selection-made' );
+        selection.parent().parent().find( 'label' ).addClass( settings.selectionMadeClassName );
       } else {
-        selection.parent().parent().find( 'label' ).removeClass( 'selection-made' );
+        selection.parent().parent().find( 'label' ).removeClass( settings.selectionMadeClassName );
       }
 
       // Close the menu
       selection.parent().hide();
 
       // Toggle the opened class on the label
-      selection.parent().parent().find( 'label' ).toggleClass( 'opened' );
+      selection.parent().parent().find( 'label' ).toggleClass( settings.menuOpenedClassName );
     }
 
   };
