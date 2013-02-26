@@ -1,6 +1,9 @@
 (function( $ ) {
 
   $.fn.customSelectMenu = function( options ) {
+
+    // TODO: Change click() to on('click', function(){ ... })
+    // TODO: Same with blur(), keyup(), mousedown()
   
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
@@ -23,8 +26,7 @@
       // Create a div to contain the custom menu...
       var newContainer = $( '<div class="' + settings.menuClass + '">' );
 
-      // Give the container div a tabindex of 0 so that it can have focus
-      // (arrow key navigation, etc. won't work without this)
+      // Give the container div a tabindex of 0 so that it can have focus (arrow key navigation, etc. won't work without this)
       // Source: http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
       newContainer.attr( 'tabindex', 0 );
 
@@ -76,6 +78,7 @@
       });
 
       // Append an unordered list to contain the custom menu options
+      // TODO: Do we even need data-select-name? Also see customMenuName below.
       var newList = $( '<ul data-select-name="' + selectName + '">' );
 
       // The unordered list is hidden by default
@@ -87,7 +90,7 @@
       // Loop through all the options and create li's to append to the custom menu
       $(this).find( 'option' ).each(function(){
         optionName   = $(this).text();
-        optionValue  = $(this).attr('value');
+        optionValue  = $(this).attr( 'value' );
         markSelected = (optionName == labelText) ? ' class="' + settings.selectedClass + '"' : '';
 
         // Make sure we have a value before setting one on the newOption
@@ -101,7 +104,7 @@
           updateMenu( $(this) );
         });
 
-        newList.append(newOption);
+        newList.append( newOption );
       });
 
       // Use arrows keys to navigation the menu
@@ -112,7 +115,7 @@
           $(this).find(newList).show();
         }
 
-        var li = $(this).find('li'),
+        var li = $(this).find( 'li' ),
             selectedLi = $(this).find( '.' + settings.selectedClass ),
             selectedLiText = selectedLi.text(),
             nextLi = '',
@@ -140,7 +143,7 @@
 
         // Pressing return/enter updates and closes the menu
         if( e.keyCode == 13 ) {
-          updateMenu( $(this).find('.' + settings.selectedClass) );
+          updateMenu( $(this).find( '.' + settings.selectedClass ) );
         }
       });
 
@@ -154,7 +157,7 @@
 
       // If the container div loses focus and the menu is visible, close it
       newContainer.blur( function() {
-        if( $(this).find(newList).is(':visible') ) {
+        if( $(this).find(newList).is( ':visible' ) ) {
           $(this).find(newLabel).removeClass( settings.openedClass );
           $(this).find(newList).hide();
         }
@@ -179,7 +182,8 @@
     function updateMenu( selection ) {
       // Whenever you click on a menu item or press return/enter, we need to update a few things...
       // Set up some vars...
-      var customMenuName    = selection.parent().attr( 'data-select-name' ), /* Get the id of the menu */
+      // TODO: Do we even need customMenuName?
+      var customMenuName    = selection.parent().attr( 'data-select-name' ), /* Get the name of the menu */
           customOptionValue = selection.attr( 'data-option-value' ), /* Get the option value */
           customOptionText  = selection.text(), /* Get the option text (for the label) */
           hiddenInput       = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */

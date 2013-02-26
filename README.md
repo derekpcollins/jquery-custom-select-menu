@@ -12,28 +12,30 @@ A jQuery Plugin that allows you to create custom select menus.
 $('select').customSelectMenu();
 ```
 
-This will take a regular select menu such as this...
+This will take a regular select menu such as this:
 
 ```html
 <select name="color-menu">
+  <option>Choose a color...</option>
   <option value="red">Red</option>
   <option value="green">Green</option>
   <option value="blue">Blue</option>
 </select>
 ```
 
-...and turn it into this...
+And turn it into this:
 
 ```html
 <div class="custom-select-menu" tabindex="0">
-  <label class="selection-made">Red</label>
-  <ul>
-    <li data-option-value="red" class="selected">Red</li>
+  <label>Choose a color...</label>
+  <ul style="display: none;">
+    <li data-option-value="" class="selected">Choose a color...</li>
+    <li data-option-value="red">Red</li>
     <li data-option-value="green">Green</li>
     <li data-option-value="blue">Blue</li>
   </ul>
 </div>
-<input type="hidden" name="color-menu" value="red" />
+<input type="hidden" name="color-menu" value="" />
 ```
 
 ## License
