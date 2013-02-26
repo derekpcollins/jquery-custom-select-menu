@@ -1,134 +1,166 @@
-describe('Custom Select Menu', function () {
+describe('Custom Select Menu', function() {
 
   beforeEach(function() {
-    
-    // Create a select element
-    $('<select name="select-menu-1" tabindex="1"></select>').appendTo('body');
-    $('<option>Choose one...</option>').appendTo('select');
-    for (var i=1; i < 4; i++) {
-      $('<option value="' + i + '">' + i + '</option>').appendTo('select');
-    };
-
-    // Create another select element
-    $('<select name="some[non-standard][id_here]"></select>').appendTo('body');
-    $('<option>Choose one...</option>').appendTo('select');
-    for (var i=5; i < 8; i++) {
-      $('<option value="' + i + '">' + i + '</option>').appendTo('select');
-    };
-
-    // Initialize the plugin
+    loadFixtures('select-menu.html');
     $('select').customSelectMenu();
-
   });
 
-  afterEach(function () {
-
-    $('select, .custom-select-menu, .foo-bar').remove();
-
+  it('hides the original select element', function() {
+    expect( $('select') ).toBeHidden();
   });
 
-  describe('An input element', function() {
+  it('creates a div to contain the custom menu', function() {
+    expect( $('div.custom-select-menu') ).toExist();
+  });
 
-    it('is created', function () {
-      var newInput = $('input');
-      expect(newInput).toExist();
-    });
+  it('creates a hidden input', function() {
+    expect( $('input:hidden') ).toExist();
+  });
 
-    it('is hidden', function () {
-      var hiddenInput = $('input');
-      expect(hiddenInput).toBeHidden();
-    });
+  it('creates a label', function() {
+    expect( $('.custom-select-menu label') ).toExist();
+  });
 
-    it('has the same name as the original select element', function () {
-      var originalSelectName = $('select').attr('name'),
-          hiddenInputName    = $('input:hidden').attr('name');
+  // LABEL
+  describe('Label', function() {
 
-      expect(hiddenInputName).toEqual(originalSelectName);
-    });
+    it('text is set to the first option if no option is selected', function() {
+      var selectedOption  = $('select option:selected').text(),
+          firstOptionText = $('select option:first').text(),
+          newLabelText    = $('.custom-select-menu label').text();
 
-    it('has a value if an option is set to "selected"', function () {
-      var hiddenInputValue = $('input:hidden').val(),
-          originalSelectedOptionValue = $('option:selected').attr('value'),
-          newSelectedOptionValue = $('li.selected').attr('data-option-value');
-
-      if( originalSelectedOptionValue ) {
-        expect(originalSelectedOptionValue).toEqual(newSelectedOptionValue);
-        expect(hiddenInputValue).toEqual(newSelectedOptionValue);
+      if( !selectedOption ) {
+        expect( newLabelText ).toEqual( firstOptionText );
+      } else {
+        expect( newLabelText ).toEqual( selectedOption );
       }
     });
 
-    it('does not have a value if an option is not set to "selected"', function () {
-      var hiddenInputValue = $('input:hidden').val(),
-          originalSelectedOptionValue = $('option:selected').attr('value'),
-          newSelectedOptionValue = $('li.selected').attr('data-option-value');
-
-      if( !originalSelectedOptionValue ) {
-        expect(originalSelectedOptionValue).toEqual(undefined);
-        expect(hiddenInputValue).toEqual('');
-      }
+    it('gets a class of opened on click', function() {
+      $('.custom-select-menu label').click();
+      var labelClass = $('.custom-select-menu label').attr( 'class' );
+      expect( labelClass ).toEqual( 'opened' );
     });
 
   });
 
-  describe('A wrapper div', function () {
+  it('creates an unordered list', function() {
+    expect( $('.custom-select-menu ul') ).toExist();
+  });
 
-    it('is created', function () {
-      var wrapperDiv = $('div');
-      expect(wrapperDiv).toExist();
-    });
+  // UNORDERED LIST
+  describe('Unordered list', function() {
 
-    it('has a default class name of custom-select-menu', function() {
-      var wrapperDiv = $('div.custom-select-menu');
-      expect(wrapperDiv).toExist();
-    });
+    /*it('has the same number of items as original options', function() {
+      var originalOptions = $('select option').length,
+          newListItems = $('.custom-select-menu li').length;
 
-    it('can accept an optional class name', function() {
-      $('select').customSelectMenu({
-        customMenuClassName : 'foo-bar'
+      expect( newListItems ).toEqual( originalOptions );
+    });*/
+
+    it('has items with the same text as the original options', function() {
+      var listItemTexts = [],
+          optionTexts = [];
+      
+      $('.custom-select-menu li').each( function() {
+        listItemTexts.push( $(this).text() );
       });
 
-      var wrapperDiv = $('div.foo-bar');
-      expect(wrapperDiv).toExist();
+      $('select option').each( function() {
+        optionTexts.push( $(this).text() );
+      });
+
+      expect( $(listItemTexts).not(optionTexts).length ).toEqual( 0 );
+      expect( $(optionTexts).not(listItemTexts).length ).toEqual( 0 );
     });
 
-    it('inherits tabindex from the original select menu', function () {
-      var originalTabindex = $('select').attr('tabindex');
+    it('has items with the same data-option-values as the original option values', function() {
+      var listItemVals = [],
+          optionVals = [];
+      
+      $('.custom-select-menu li').each( function() {
+        var dataOptionValue = $(this).attr( 'data-option-value' );
+        if( dataOptionValue ) {
+          listItemVals.push( dataOptionValue );
+        }
+      });
 
-      if(originalTabindex) {
-        var newLabelTabindex = $('div.custom-select-menu').attr('tabindex');
-        expect(originalTabindex).toEqual(newLabelTabindex);
-      }
+      $('select option').each( function() {
+        var optionVal = $(this).attr( 'value' );
+        if( optionVal ) {
+          optionVals.push( optionVal );
+        }
+      });
+
+      expect( $(listItemVals).not( optionVals ).length ).toEqual( 0 );
+      expect( $(optionVals).not( listItemVals ).length ).toEqual( 0 );
     });
 
-  });
-
-  describe('A label', function () {
-
-    it('is created', function () {
-      var newLabel = $('label');
-      expect(newLabel).toExist();
+    it('is hidden by default', function() {
+      expect( $('.custom-select-menu ul') ).toBeHidden();
     });
 
-    it('text is the same as the first option', function () {
-      var firstOption = $('select').find(':first').text(),
-          labelText   = $('div.custom-select-menu label').text();
-
-      expect(labelText).toEqual(firstOption);
+    it('is shown on click', function() {
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeVisible();
     });
 
-  });
+    it('is hidden if there is a click outside the menu', function() {
+      // Open the menu first
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeVisible();
 
-  describe('An unordered list', function () {
-
-    it('is created', function () {
-      var newList = $('div.custom-select-menu ul');
-      expect(newList).toExist();
+      $('body').mousedown();
+      expect( $('.custom-select-menu ul') ).toBeHidden();
     });
 
-  })
+    it('is hidden if the esc key is pressed', function() {
+      // Open the menu first
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeVisible();
+      
+      var e = $.Event('keyup', {
+        keyCode: 27
+      });
+    
+      $('body').trigger(e);
 
-  it('hides the original select element', function () {
-    expect($('select')).toBeHidden();
+      expect( $('.custom-select-menu ul') ).toBeHidden();
+    });
+
+    it('is hidden if the container loses focus', function() {
+      // Open the menu first
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeVisible();
+
+      $('.custom-select-menu').blur();
+      expect( $('.custom-select-menu ul') ).toBeHidden();
+    });
+
+    it('is shown if the container has focus and the up arrow key is pressed', function() {
+      $('.custom-select-menu').focus();
+      expect( $('.custom-select-menu ul') ).toBeHidden();
+
+      var e = $.Event('keyup', {
+        keyCode: 38
+      });
+    
+      $('.custom-select-menu').trigger(e);
+      expect( $('.custom-select-menu ul') ).toBeVisible();
+    });
+
+    it('is shown if the container has focus and the down arrow key is pressed', function() {
+      $('.custom-select-menu').focus();
+      expect( $('.custom-select-menu ul') ).toBeHidden();
+
+      var e = $.Event('keyup', {
+        keyCode: 40
+      });
+    
+      $('.custom-select-menu').trigger(e);
+      expect( $('.custom-select-menu ul') ).toBeVisible();
+    });
+
   });
 
 });

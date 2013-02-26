@@ -14,8 +14,26 @@
           labelText      = '',
           newLabel       = '';
 
+      // Hide the original select menu
+      $(this).hide();
+
       // Create a div to contain the custom menu...
-      var newContainer = $( '<div class="' + settings.customMenuClassName + '"></div>' );
+      var newContainer = $( '<div class="' + settings.customMenuClassName + '">' );
+
+      // Give the container div a tabindex of 0 so that it can have focus
+      // (arrow key navigation, etc. won't work without this)
+      // Source: http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
+      newContainer.attr( 'tabindex', 0 );
+
+      // Remove the tabindex from the original select menu
+      // NOTE: This may not be necessary
+      $(this).removeAttr( 'tabindex' );
+
+      // Create a hidden input field so we can keep track of which option they choose
+      var newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );
+
+      // Add it to the DOM
+      $(this).after(newHiddenInput);
 
       // Set up the first selected option and create the label
       if( $(this).find( ':selected' ) ) {
@@ -27,14 +45,11 @@
         // Create a label to show the selected option
         if( !selectedOptionValue ) {
           newLabel = $( '<label>' + labelText + '</label>' );
-
-          // Create a hidden input field so we can keep track of which option they choose
-          $(this).after( '<input type="hidden" name="' + selectName + '" value="" />' );
         } else {
           newLabel = $( '<label class="selection-made">' + labelText + '</label>' );
-
-          // Create a hidden input field so we can keep track of which option they choose
-          $(this).after( '<input type="hidden" name="' + selectName + '" value="' + selectedOptionValue + '" />' );
+          
+          // Add the selected option value to the hidden input
+          newHiddenInput.val( selectedOptionValue );
         }
 
       } else {
@@ -45,18 +60,7 @@
         // Source: http://www.w3.org/TR/html401/interact/forms.html#h-17.6.1
         labelText = $(this).find( ':first' ).text();
         newLabel = $( '<label>' + labelText + '</label>' );
-
-        // Create a hidden input field so we can keep track of which option they choose
-        $(this).after( '<input type="hidden" name="' + selectName + '" value="" />' );
       }
-
-      // Give the container div a tabindex of 0 so that it can have focus
-      // (arrow key navigation, etc. won't work without this)
-      // Source: http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
-      newContainer.attr( 'tabindex', 0 );
-
-      // Remove the tabindex from the original select menu
-      $(this).removeAttr( 'tabindex' );
 
       // Create a label to show the selected or first option...
       newLabel.click(function(){
@@ -69,8 +73,9 @@
       });
 
       // Append an unordered list to contain the custom menu options
-      // The unordered list is hidden by default
       var newList = $( '<ul data-select-name="' + selectName + '">' );
+
+      // The unordered list is hidden by default
       newList.hide();
 
       // Add the custom select menu container to the DOM after the original select menu
@@ -83,7 +88,7 @@
         markSelected = (optionName == labelText) ? ' class="selected"' : '';
 
         // Make sure we have a value before setting one on the newOption
-        if(!optionValue) {
+        if( !optionValue ) {
           newOption = $( '<li' + markSelected + '>' + optionName + '</li>' );
         } else {
           newOption = $( '<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>' );
@@ -95,9 +100,6 @@
 
         newList.append(newOption);
       });
-
-      // Hide the original select menu
-      $(this).hide();
 
       // Use arrows keys to navigation the menu
       newContainer.keyup(function( e ) {

@@ -12,7 +12,6 @@
 #
 src_files:
     - public/javascripts/vendor/jquery-1.9.1.js
-    - public/javascripts/vendor/jasmine-jquery.js
     - public/javascripts/**/*.js
 
 # stylesheets
