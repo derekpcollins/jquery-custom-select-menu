@@ -15,7 +15,8 @@
 
     return this.each(function() {
 
-      var selectName     = $(this).attr( 'name' ), /* Get the name of the menu */
+      var selectName     = $(this).attr( 'name' ), /* Get the name of the original menu */
+          selectId       = $(this).attr( 'id' ), /* Get the id of the original menu */
           newOption      = '',
           labelText      = '',
           newLabel       = '';
@@ -33,6 +34,11 @@
       // Remove the tabindex from the original select menu
       // NOTE: This may not be necessary
       $(this).removeAttr( 'tabindex' );
+
+      // If the original select menu has an id, then give that id to the container div
+      if( selectId ) {
+        newContainer.attr( 'id', selectId );
+      }
 
       // Create a hidden input field so we can keep track of which option they choose
       var newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );

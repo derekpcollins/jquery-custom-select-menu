@@ -25,6 +25,20 @@ describe('Custom Select Menu', function() {
     expect( $('.custom-select-menu ul') ).toExist();
   });
 
+  // CONTAINER DIV
+  describe('Container div', function() {
+
+    it('has a tabindex of 0', function() {
+      expect( $('div.custom-select-menu') ).toHaveAttr( 'tabindex', 0 );
+    });
+
+    it('is given the id from the original menu', function() {
+      var originalMenuId = $('select').attr( 'id' );
+      expect( $('div.custom-select-menu') ).toHaveAttr( 'id', originalMenuId );
+    });
+
+  });
+
   // LABEL
   describe('Label', function() {
 

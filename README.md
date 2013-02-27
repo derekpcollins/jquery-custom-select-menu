@@ -15,7 +15,7 @@ $('select').customSelectMenu();
 This will take a regular select menu such as this:
 
 ```html
-<select name="color-menu">
+<select name="color-menu" id="my-color-menu">
   <option>Choose a color...</option>
   <option value="red">Red</option>
   <option value="green">Green</option>
@@ -26,7 +26,7 @@ This will take a regular select menu such as this:
 And turn it into this:
 
 ```html
-<div class="custom-select-menu" tabindex="0">
+<div class="custom-select-menu" tabindex="0" id="my-color-menu">
   <label>Choose a color...</label>
   <ul style="display: none;">
     <li data-option-value="" class="selected">Choose a color...</li>
