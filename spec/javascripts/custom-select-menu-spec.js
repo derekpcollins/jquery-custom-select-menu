@@ -9,6 +9,10 @@ describe('Custom Select Menu', function() {
     expect( $('select') ).toBeHidden();
   });
 
+  it('removes the id from the original select element', function() {
+    expect( $('select') ).not.toHaveAttr( 'id' );
+  });
+
   it('creates a div to contain the custom menu', function() {
     expect( $('div.custom-select-menu') ).toExist();
   });
