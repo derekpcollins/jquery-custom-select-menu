@@ -1,0 +1,69 @@
+<!DOCTYPE />
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  
+    <title>Custom Select Menu jQuery Plugin</title>
+  
+    <link rel="stylesheet" href="public/stylesheets/example.css" />
+  </head>
+
+  <body>
+  
+    <div class="wrapper">
+
+      <h1>Custom Select Menu jQuery Plugin Example</h1>
+
+      <form id="my-form">
+        <select name="account[meta][company_size]" id="color-menu">
+          <option>Choose one...</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="indigo">Indigo</option>
+          <option value="violet">Violet</option>
+        </select>
+      </form>
+
+      <!--<h2>Multiple Menus</h2>
+
+      <form id="my-form-2" style="float: left; width: 300px;">
+        <select name="account[meta][company_size]" id="color-menu-2">
+          <option>Choose one...</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="indigo">Indigo</option>
+          <option value="violet">Violet</option>
+        </select>
+      </form>
+
+      <form id="my-form-3" style="float: left; width: 300px;">
+        <select name="account[meta][company_size]" id="color-menu-3">
+          <option>Choose one...</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="indigo">Indigo</option>
+          <option value="violet">Violet</option>
+        </select>
+      </form>-->
+
+    </div><!-- .wrapper -->
+  
+    <script src="public/javascripts/vendor/jquery-1.9.1.js"></script>
+    <script src="public/javascripts/jquery.custom-select-menu.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('select').customSelectMenu();
+      });
+    </script>
+  
+  </body>
+</html>
