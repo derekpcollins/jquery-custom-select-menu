@@ -2,10 +2,6 @@
 
 A jQuery Plugin that allows you to create custom select menus.
 
-## Overview
-
-*Coming sooner or later*
-
 ## Usage
 
 First, download and include `custom-select-menu.jquery.js` (or the minified version) in your HTML document.
