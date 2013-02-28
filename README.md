@@ -8,6 +8,10 @@ A jQuery Plugin that allows you to create custom select menus.
 
 ## Usage
 
+First, download and include `custom-select-menu.jquery.js` (or the minified version) in your HTML document.
+
+Next, call the `customSelectMenu()` method on any select element in order to start customzing it. Note that you can pass the `customSelectMenu()` method an id, a class, or even just the `select` element itself.
+
 ```javascript
 $('select').customSelectMenu();
 ```
@@ -37,6 +41,10 @@ And turn it into this:
 </div>
 <input type="hidden" name="color-menu" value="" />
 ```
+
+## Requirements and Compatibility
+
+Please note that this plugin requires jQuery version >=1.8.0. 
 
 ## License
 
