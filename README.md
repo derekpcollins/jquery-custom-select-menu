@@ -44,7 +44,7 @@ And turn it into this:
 
 ## Requirements and Compatibility
 
-Please note that this plugin requires jQuery version >=1.8.0. 
+Please note that this plugin requires jQuery version **1.8.0** or later. 
 
 ## License
 
