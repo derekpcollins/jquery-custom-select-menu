@@ -11,8 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-    - public/javascripts/vendor/jquery-1.9.1.js
-    - public/javascripts/**/*.js
+#    - public/javascripts/vendor/jquery-1.9.1.js
+    - spec/javascripts/vendors/*.js
     - custom-select-menu.jquery.js
 
 # stylesheets
