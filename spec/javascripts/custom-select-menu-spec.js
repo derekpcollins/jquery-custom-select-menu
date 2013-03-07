@@ -75,6 +75,44 @@ describe('Custom Select Menu', function() {
       expect( labelClass ).toContain( '' );
     });
 
+    it('has a class of opened removed if the return/enter key is pressed and the menu was visible', function() {
+      // Open the menu first
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeVisible();
+
+      // Simulate enter/return being pressed
+      var e = $.Event('keyup', {
+        keyCode: 13
+      });
+
+      $('.custom-select-menu').trigger(e);
+
+      var labelClass = $('.custom-select-menu label').attr( 'class' );
+      expect( labelClass ).toEqual( '' );
+    });
+
+    it('does not get a class of opened if the return/enter key is pressed and the menu was not visible', function() {
+      // Open the menu first
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeVisible();
+
+      // Second click closes the menu
+      $('.custom-select-menu label').click();
+      expect( $('.custom-select-menu ul') ).toBeHidden();
+
+      // Simulate enter/return being pressed
+      var e = $.Event('keyup', {
+        keyCode: 13
+      });
+
+      $('.custom-select-menu').trigger(e);
+      expect( $('.custom-select-menu ul') ).toBeHidden();
+
+      var labelClass = $('.custom-select-menu label').attr( 'class' );
+      console.log(labelClass);
+      expect( labelClass ).toEqual( '' );
+    });
+
     it('gets a class of selection made when an option is selected', function() {
       var listItem = $('.custom-select-menu li[data-option-value="red"]');
       listItem.click();

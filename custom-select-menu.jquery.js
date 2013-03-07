@@ -14,7 +14,6 @@
     function updateMenu( selection ) {
       // Whenever you click on a menu item or press return/enter, we need to update a few things...
       // Set up some vars...
-      // TODO: Do we even need customMenuName?
       var customMenuName = selection.parent().attr( 'data-select-name' ), /* Get the name of the menu */
           customOptionValue = selection.attr( 'data-option-value' ), /* Get the option value */
           customOptionText = selection.text(), /* Get the option text (for the label) */
@@ -44,7 +43,12 @@
       selection.parent().hide();
 
       // Toggle the opened class on the label
-      selection.parent().parent().find( 'label' ).toggleClass( settings.openedClass );
+      if( selection.parent().css('display') !== 'none' ) {
+        selection.parent().parent().find( 'label' ).toggleClass( settings.openedClass );
+      } else {
+        selection.parent().parent().find( 'label' ).removeClass( settings.openedClass );
+      }
+      
     }
 
     return this.each(function() {
@@ -121,7 +125,6 @@
       });
 
       // Append an unordered list to contain the custom menu options and hide it
-      // TODO: Do we even need data-select-name? Also see customMenuName below.
       newList = $( '<ul data-select-name="' + selectName + '">' ).hide();
 
       // Add the custom select menu container to the DOM after the original select menu
