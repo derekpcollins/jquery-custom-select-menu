@@ -1,0 +1,117 @@
+/* =Reset */
+
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; }
+      
+table { border-collapse: collapse; border-spacing: 0; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+/* =General */
+
+body {
+  font-family: 'Helvetica',sans-serif;
+}
+
+.wrapper {
+  width: 800px;
+  margin: 30px auto;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-bottom: 30px;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+/* =Custom Select Menu */
+
+.custom-select-menu {
+  display: inline-block;
+  margin-bottom: 8px;
+  outline: none;
+  position: relative;
+}
+
+.custom-select-menu label {
+  border: 2px solid #888;
+  border-radius: 4px;
+  color: #888;
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 32px 10px 10px;
+  position: relative;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;  
+  user-select: none;
+}
+
+.custom-select-menu label.selection-made {
+  color: #000;
+}
+
+.custom-select-menu label:after {
+  border-top: 6px solid #888;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 16px;
+}
+
+.custom-select-menu label.opened {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.custom-select-menu:focus label {
+  border-color: #000;
+}
+
+.custom-select-menu ul {
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 4px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  list-style: none;
+  left: 10px;
+  margin: 0 -10px;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  top: 40px;
+  z-index: 2;
+}
+
+.custom-select-menu  li {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 7px 10px;
+}
+
+.custom-select-menu li:hover,
+.custom-select-menu .selected {
+  background-color: rgba(0,0,0,.05);
+}
+
+.custom-select-menu .results {
+  overflow: scroll;
+  max-height: 150px;
+}
+
+.custom-select-menu label {
+  width: 200px;
+}
+.custom-select-menu ul {
+  width: 242px;
+}
