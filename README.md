@@ -72,11 +72,22 @@ The following are user-configurable options:
     </tr>
     <tr>
       <td>selectionMadeClass</td>
-      <td>selection-made></td>
+      <td>selection-made</td>
       <td>The class given to the label when an option has been selected</td>
     </tr>
   </tbody>
 </table>
+
+You can set these options by passing them to the `customSelectMenu()` method:
+
+```javascript
+$('select').customSelectMenu( {
+  menuClass          : 'my-menu',
+  openedClass        : 'shown',
+  selectedClass      : 'active',
+  selectionMadeClass : 'has-been-selected'
+} );
+```
 
 ## Requirements and Compatibility
 
