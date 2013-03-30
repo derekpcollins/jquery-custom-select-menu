@@ -46,47 +46,20 @@ And turn it into this:
 
 The following are user-configurable options:
 
-<table>
-  <thead>
-    <tr>
-      <th>Option</th>
-      <th>Default value</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>menuClass</td>
-      <td>custom-select-menu</td>
-      <td>The class name for the custom select menu div</td>
-    </tr>
-    <tr>
-      <td>openedClass</td>
-      <td>opened</td>
-      <td>The class given to the label when the menu is visible</td>
-    </tr>
-    <tr>
-      <td>selectedClassh</td>
-      <td>selected</td>
-      <td>The class given to the list item when an option has been selected</td>
-    </tr>
-    <tr>
-      <td>selectionMadeClass</td>
-      <td>selection-made</td>
-      <td>The class given to the label when an option has been selected</td>
-    </tr>
-  </tbody>
-</table>
+- `menuClass`: The class name for the custom select menu div. Default value: `custom-select-menu`
+- `openedClass`: The class name for the custom select menu div. Default value: `opened`
+- `selectedClass`: The class given to the list item when an option has been selected. Default value: `selected`
+- `selectionMadeClass`: The class given to the label when an option has been selected. Default value: `selection-made`
 
 You can set these options by passing them to the `customSelectMenu()` method:
 
 ```javascript
-$('select').customSelectMenu( {
+$('select').customSelectMenu({
   menuClass          : 'my-menu',
   openedClass        : 'shown',
   selectedClass      : 'active',
   selectionMadeClass : 'has-been-selected'
-} );
+});
 ```
 
 ## Requirements and Compatibility
