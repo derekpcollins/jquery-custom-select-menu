@@ -62,6 +62,10 @@ $('select').customSelectMenu({
 });
 ```
 
+## Styling the Menu
+
+There are no styles implied with this plugin because I didn't want to make any assumption about how someone would want this menu to look. For tips on styling the menu, [take a look at the CSS on the demo page](http://derekpcollins.com/jquery-custom-select-menu/public/stylesheets/demo.css).
+
 ## Requirements and Compatibility
 
 Please note that this plugin requires jQuery version **1.8** or later.
