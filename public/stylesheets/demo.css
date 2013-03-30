@@ -1,5 +1,4 @@
 /* =Reset */
-
 html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; }
       
 table { border-collapse: collapse; border-spacing: 0; }
@@ -7,7 +6,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
 /* =General */
-
 body {
   font-family: 'Helvetica',sans-serif;
 }
@@ -30,7 +28,6 @@ form {
 }
 
 /* =Custom Select Menu */
-
 .custom-select-menu {
   display: inline-block;
   margin-bottom: 8px;
@@ -46,17 +43,27 @@ form {
   font-weight: bold;
   padding: 10px 32px 10px 10px;
   position: relative;
+  /* Prevents text-selection on the label. */
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;  
   user-select: none;
+  /* We're giving the label a specific width. 
+  Don't forget to set a width for the list of options
+  as well (see below). */
+  width: 200px;
 }
 
+/* Sometimes you want to change the look of the menu/label
+when a selection with a value has been made. In this case,
+we're increasing the contast of the font color */
 .custom-select-menu label.selection-made {
   color: #000;
 }
 
+/* Here we're adding a down arrow to make it look more
+like a select menu. */
 .custom-select-menu label:after {
   border-top: 6px solid #888;
   border-right: 6px solid transparent;
@@ -67,21 +74,29 @@ form {
   top: 16px;
 }
 
+/* When the list of options is displayed we'll remove
+the bottom border-radius on the label so that it sits
+flush next the menu. */
 .custom-select-menu label.opened {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.custom-select-menu:focus label {
+/* When the label has focus or is hovered over, increase
+the contrast of the border. */
+.custom-select-menu:focus label,
+.custom-select-menu:hover label {
   border-color: #000;
 }
 
+/* If you don't want the menu to be too long, then 
+give it a max-height, but don't forget to allow it to
+scroll so all the options are visible. */
 .custom-select-menu ul {
   background: #fff;
   border: 2px solid #000;
-  border-radius: 4px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
   list-style: none;
   left: 10px;
   margin: 0 -10px;
@@ -90,6 +105,7 @@ form {
   overflow-y: scroll;
   position: absolute;
   top: 40px;
+  width: 242px; /* Set a width equal to the label. */
   z-index: 2;
 }
 
@@ -99,19 +115,10 @@ form {
   padding: 7px 10px;
 }
 
+/* When you hover over an option we'll change the 
+background color to make it more obvious. We'll do 
+the same when an option is selected. */
 .custom-select-menu li:hover,
 .custom-select-menu .selected {
   background-color: rgba(0,0,0,.05);
-}
-
-.custom-select-menu .results {
-  overflow: scroll;
-  max-height: 150px;
-}
-
-.custom-select-menu label {
-  width: 200px;
-}
-.custom-select-menu ul {
-  width: 242px;
 }
