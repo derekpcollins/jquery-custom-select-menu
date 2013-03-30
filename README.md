@@ -47,31 +47,35 @@ And turn it into this:
 The following are user-configurable options:
 
 <table>
-  <tr>
-    <th>Option</th>
-    <th>Default value</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>`menuClass`</td>
-    <td>custom-select-menu</td>
-    <td>The class name for the custom select menu div</td>
-  </tr>
-  <tr>
-    <td>`openedClass`</td>
-    <td>opened</td>
-    <td>The class given to the label when the menu is visible</td>
-  </tr>
-  <tr>
-    <td>`selectedClass`</td>
-    <td>selected</td>
-    <td>The class given to the list item when an option has been selected</td>
-  </tr>
-  <tr>
-    <td>`selectionMadeClass`</td>
-    <td>selection-made></td>
-    <td>The class given to the label when an option has been selected</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Default value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>menuClass</th>
+      <td>custom-select-menu</td>
+      <td>The class name for the custom select menu div</td>
+    </tr>
+    <tr>
+      <th>openedClass</th>
+      <td>opened</td>
+      <td>The class given to the label when the menu is visible</td>
+    </tr>
+    <tr>
+      <th>selectedClassh</th>
+      <td>selected</td>
+      <td>The class given to the list item when an option has been selected</td>
+    </tr>
+    <tr>
+      <th>selectionMadeClass</th>
+      <td>selection-made></td>
+      <td>The class given to the label when an option has been selected</td>
+    </tr>
+  </tbody>
 </table>
 
 ## Requirements and Compatibility
