@@ -94,7 +94,7 @@
         // Set the label text to the selected option text
         labelText = selectedOption.text();
         
-        // Create a label to show the selected option
+        // Create a label to show the selected or first option...
         if( !selectedOptionValue ) {
           newLabel = $( '<label>' + labelText + '</label>' );
         } else {
@@ -114,11 +114,12 @@
         newLabel = $( '<label>' + labelText + '</label>' );
       }
 
-      // Create a label to show the selected or first option...
-      newLabel.on( 'click', function(){
+      // Listen for click events on newLabel
+      newContainer.on( 'click', newLabel, function( e ){
+        var thisLabel = e.target;
         // Hide all other custom select menus
-        $('.' + settings.menuClass + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
-        $('.' + settings.menuClass + ' .' + settings.openedClass).not( $(this) ).removeClass( settings.openedClass );
+        $('.' + settings.menuClass + ' ul').not( thisLabel.parent().find( 'ul' ) ).hide();
+        $('.' + settings.menuClass + ' .' + settings.openedClass).not( thisLabel ).removeClass( settings.openedClass );
 
         newLabel.toggleClass( settings.openedClass );
         newLabel.parent().find( 'ul' ).toggle();
