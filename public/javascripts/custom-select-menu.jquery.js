@@ -94,7 +94,7 @@
         // Set the label text to the selected option text
         labelText = selectedOption.text();
         
-        // Create a label to show the selected or first option...
+        // Create a label to show the selected option
         if( !selectedOptionValue ) {
           newLabel = $( '<label>' + labelText + '</label>' );
         } else {
@@ -114,13 +114,11 @@
         newLabel = $( '<label>' + labelText + '</label>' );
       }
 
-      // Listen for click events on newLabel
-      newContainer.on( 'click', newLabel, function( e ){
-        var thisLabel = e.target;
-        console.log( thisLabel );
+      // Create a label to show the selected or first option...
+      newLabel.on( 'click', function(){
         // Hide all other custom select menus
-        $('.' + settings.menuClass + ' ul').not( newList ).hide();
-        $('.' + settings.menuClass + ' .' + settings.openedClass).not( thisLabel ).removeClass( settings.openedClass );
+        $('.' + settings.menuClass + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
+        $('.' + settings.menuClass + ' .' + settings.openedClass).not( $(this) ).removeClass( settings.openedClass );
 
         newLabel.toggleClass( settings.openedClass );
         newLabel.parent().find( 'ul' ).toggle();
@@ -136,8 +134,7 @@
       $this.find( 'option' ).each(function(){
         var optionName = $(this).text(),
             optionValue = $(this).attr( 'value' ),
-            markSelected = (optionName === labelText) ? ' class="' + settings.selectedClass + '"' : '',
-            thisOption = '';
+            markSelected = (optionName === labelText) ? ' class="' + settings.selectedClass + '"' : '';
 
         // Make sure we have a value before setting one on the newOption
         if( !optionValue ) {
@@ -146,11 +143,8 @@
           newOption = $( '<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>' );
         }
 
-        // Listen for click events on newList, but delegate them to the individual option
-        newList.on( 'click', newOption, function( e ){
-          thisOption = $(e.target);
-          //console.log( thisOption );
-          updateMenu( thisOption );
+        newOption.on( 'click', function(){
+          updateMenu( $(this) );
         });
 
         newList.append( newOption );
@@ -205,9 +199,9 @@
 
       // If the container div loses focus and the menu is visible, close it
       newContainer.on( 'blur', function() {
-        if( $(this).find( newList ).is( ':visible' ) ) {
-          $(this).find( newLabel ).removeClass( settings.openedClass );
-          $(this).find( newList ).hide();
+        if( $(this).find(newList).is( ':visible' ) ) {
+          $(this).find(newLabel).removeClass( settings.openedClass );
+          $(this).find(newList).hide();
         }
       });
 
