@@ -117,6 +117,7 @@
       // Listen for click events on newLabel
       newContainer.on( 'click', newLabel, function( e ){
         var thisLabel = e.target;
+        console.log( thisLabel );
         // Hide all other custom select menus
         $('.' + settings.menuClass + ' ul').not( thisLabel.parent().find( 'ul' ) ).hide();
         $('.' + settings.menuClass + ' .' + settings.openedClass).not( thisLabel ).removeClass( settings.openedClass );
