@@ -119,7 +119,7 @@
         var thisLabel = e.target;
         console.log( thisLabel );
         // Hide all other custom select menus
-        $('.' + settings.menuClass + ' ul').not( thisLabel.parent().find( 'ul' ) ).hide();
+        $('.' + settings.menuClass + ' ul').not( newList ).hide();
         $('.' + settings.menuClass + ' .' + settings.openedClass).not( thisLabel ).removeClass( settings.openedClass );
 
         newLabel.toggleClass( settings.openedClass );
