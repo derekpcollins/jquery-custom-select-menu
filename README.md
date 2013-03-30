@@ -42,6 +42,38 @@ And turn it into this:
 <input type="hidden" name="color-menu" value="" />
 ```
 
+## Options
+
+The following are user-configurable options:
+
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Default value</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>`menuClass`</td>
+    <td>custom-select-menu</td>
+    <td>The class name for the custom select menu div</td>
+  </tr>
+  <tr>
+    <td>`openedClass`</td>
+    <td>opened</td>
+    <td>The class given to the label when the menu is visible</td>
+  </tr>
+  <tr>
+    <td>`selectedClass`</td>
+    <td>selected</td>
+    <td>The class given to the list item when an option has been selected</td>
+  </tr>
+  <tr>
+    <td>`selectionMadeClass`</td>
+    <td>selection-made></td>
+    <td>The class given to the label when an option has been selected</td>
+  </tr>
+</table>
+
 ## Requirements and Compatibility
 
 Please note that this plugin requires jQuery version **1.8** or later.
