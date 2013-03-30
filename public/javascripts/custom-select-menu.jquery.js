@@ -115,7 +115,7 @@
       }
 
       // Create a label to show the selected or first option...
-      newLabel.on( 'click', function(){
+      newContainer.on( 'click', newLabel, function(){
         // Hide all other custom select menus
         $('.' + settings.menuClass + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
         $('.' + settings.menuClass + ' .' + settings.openedClass).not( $(this) ).removeClass( settings.openedClass );
@@ -134,7 +134,8 @@
       $this.find( 'option' ).each(function(){
         var optionName = $(this).text(),
             optionValue = $(this).attr( 'value' ),
-            markSelected = (optionName === labelText) ? ' class="' + settings.selectedClass + '"' : '';
+            markSelected = (optionName === labelText) ? ' class="' + settings.selectedClass + '"' : '',
+            thisOption = '';
 
         // Make sure we have a value before setting one on the newOption
         if( !optionValue ) {
@@ -143,8 +144,11 @@
           newOption = $( '<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>' );
         }
 
-        newOption.on( 'click', function(){
-          updateMenu( $(this) );
+        // Listen for click events on newList, but delegate them to the individual option
+        newList.on( 'click', newOption, function( e ){
+          thisOption = $(e.target);
+          //console.log( thisOption );
+          updateMenu( thisOption );
         });
 
         newList.append( newOption );
@@ -199,9 +203,9 @@
 
       // If the container div loses focus and the menu is visible, close it
       newContainer.on( 'blur', function() {
-        if( $(this).find(newList).is( ':visible' ) ) {
-          $(this).find(newLabel).removeClass( settings.openedClass );
-          $(this).find(newList).hide();
+        if( $(this).find( newList ).is( ':visible' ) ) {
+          $(this).find( newLabel ).removeClass( settings.openedClass );
+          $(this).find( newList ).hide();
         }
       });
 
