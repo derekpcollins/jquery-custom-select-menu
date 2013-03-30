@@ -115,7 +115,7 @@
       }
 
       // Create a label to show the selected or first option...
-      newContainer.on( 'click', newLabel, function(){
+      newLabel.on( 'click', function(){
         // Hide all other custom select menus
         $('.' + settings.menuClass + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
         $('.' + settings.menuClass + ' .' + settings.openedClass).not( $(this) ).removeClass( settings.openedClass );
