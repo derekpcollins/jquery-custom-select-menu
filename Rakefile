@@ -7,4 +7,4 @@ rescue LoadError
   end
 end
 
-task :default => ['jasmine:ci']
+task :default => "jasmine:ci"
