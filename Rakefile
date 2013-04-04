@@ -1,3 +1,4 @@
+task :default => "jasmine:ci"
 
 begin
   require 'jasmine'
