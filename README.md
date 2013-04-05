@@ -38,8 +38,8 @@ And turn it into this:
     <li data-option-value="green">Green</li>
     <li data-option-value="blue">Blue</li>
   </ul>
+  <input type="hidden" name="color-menu" value="" />
 </div>
-<input type="hidden" name="color-menu" value="" />
 ```
 
 ## Options
