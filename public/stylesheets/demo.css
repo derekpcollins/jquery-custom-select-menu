@@ -60,7 +60,7 @@ form {
 
 /* Sometimes you want to change the look of the menu/label
 when a selection with a value has been made. In this case,
-we're increasing the contast of the font color */
+we're increasing the contrast of the font color. */
 .custom-select-menu label.selection-made {
   color: #000;
 }
@@ -92,7 +92,7 @@ the contrast of the border. */
   border-color: #000;
 }
 
-/* If you don't want the menu to be too long, then 
+/* If you don't want the menu to be too tall, then 
 give it a max-height, but don't forget to allow it to
 scroll so all the options are visible. */
 .custom-select-menu ul {
@@ -105,7 +105,7 @@ scroll so all the options are visible. */
   margin: 0 -10px;
   max-height: 200px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: scroll; /* Allow it to scroll vertically. */
   position: absolute;
   top: 40px;
   width: 242px; /* Set a width equal to the label. */
@@ -119,8 +119,8 @@ scroll so all the options are visible. */
 }
 
 /* When you hover over an option we'll change the 
-background color to make it more obvious. We'll do 
-the same when an option is selected. */
+background color. We'll do the same when an option 
+is selected. */
 .custom-select-menu li:hover,
 .custom-select-menu .selected {
   background-color: rgba(0,0,0,.05);
