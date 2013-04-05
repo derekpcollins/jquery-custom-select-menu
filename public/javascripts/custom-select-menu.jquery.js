@@ -31,8 +31,7 @@
       // Update the label
       selection.parent().parent().find( 'label' ).text( customOptionText );
 
-      // If the hidden input value isn't empty,
-      // then give the label a class of selection-made
+      // If the hidden input value isn't empty give the label a class to show it was selected
       if(hiddenInput.val() !== '') {
         selection.parent().parent().find( 'label' ).addClass( settings.selectionMadeClass );
       } else {
@@ -56,14 +55,15 @@
       var $this = $(this),
           selectName = $this.attr( 'name' ), /* Get the name of the original menu */
           selectId = $this.attr( 'id' ), /* Get the id of the original menu */
-          newOption = '',
-          labelText = '',
-          newLabel = '',
-          newContainer = '',
-          newHiddenInput = '',
-          selectedOption = '',
-          selectedOptionValue = '',
-          newList = '';
+          newHiddenInput,
+          newContainer,
+          newLabel,
+          labelText,
+          newList,
+          newOption,
+          selectedOption,
+          selectedOptionValue;
+          
 
       // Hide the original select menu
       $this.hide();
@@ -78,12 +78,6 @@
         newContainer.attr( 'id', selectId );
         $this.removeAttr('id');
       }
-
-      // Create a hidden input field so we can keep track of which option they choose
-      newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );
-
-      // Add it to the DOM
-      $this.after(newHiddenInput);
 
       // Set up the first selected option and create the label
       if( $this.find( ':selected' ) ) {
@@ -114,21 +108,15 @@
         newLabel = $( '<label>' + labelText + '</label>' );
       }
 
-      // Create a label to show the selected or first option...
-      newLabel.on( 'click', function(){
-        // Hide all other custom select menus
-        $('.' + settings.menuClass + ' ul').not( $(this).parent().find( 'ul' ) ).hide();
-        $('.' + settings.menuClass + ' .' + settings.openedClass).not( $(this) ).removeClass( settings.openedClass );
-
-        newLabel.toggleClass( settings.openedClass );
-        newLabel.parent().find( 'ul' ).toggle();
-      });
-
       // Append an unordered list to contain the custom menu options and hide it
       newList = $( '<ul data-select-name="' + selectName + '">' ).hide();
 
+      // Create a hidden input field so we can keep track of which option they choose
+      newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );
+
       // Add the custom select menu container to the DOM after the original select menu
-      $this.after( newContainer.append( newLabel, newList ) );
+      // and append the label, list and hidden input to it
+      $this.after( newContainer.append( newLabel, newList, newHiddenInput ) );
 
       // Loop through all the options and create li's to append to the custom menu
       $this.find( 'option' ).each(function(){
@@ -143,11 +131,23 @@
           newOption = $( '<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>' );
         }
 
-        newOption.on( 'click', function(){
-          updateMenu( $(this) );
-        });
-
         newList.append( newOption );
+      });
+
+      // Listen for click events on the custom select menu container
+      newContainer.on( 'click', function( event ){
+        var target = $(event.target);
+
+        // When the label is clicked, toggle the menu
+        if( target.is( 'label' ) ){
+          newLabel.toggleClass( settings.openedClass );
+          newLabel.parent().find( 'ul' ).toggle();
+        }
+
+        // When an option is clicked, update the menu with that option
+        if( target.is( 'li' ) ){
+          updateMenu( target );
+        }
       });
 
       // Use arrows keys to navigation the menu
@@ -189,19 +189,19 @@
         }
       });
 
+      // If the container div loses focus and the menu is visible, close it
+      newContainer.on( 'blur', function() {
+        if( $(this).find( newList ).is( ':visible' ) ) {
+          $(this).find( newLabel ).removeClass( settings.openedClass );
+          $(this).find( newList ).hide();
+        }
+      });
+
       // Pressing esc closes the menu
       $('html').on( 'keyup', function( e ) {
         if( e.keyCode === 27 ) {
           newLabel.removeClass( settings.openedClass );
           newList.hide();
-        }
-      });
-
-      // If the container div loses focus and the menu is visible, close it
-      newContainer.on( 'blur', function() {
-        if( $(this).find(newList).is( ':visible' ) ) {
-          $(this).find(newLabel).removeClass( settings.openedClass );
-          $(this).find(newList).hide();
         }
       });
 
