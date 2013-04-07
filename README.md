@@ -54,7 +54,7 @@ The following are user-configurable options:
       <th>Option</th>
       <th>Default Value</th>
       <th>Type</th>
-      <th width="320">Description</th>
+      <th width="360">Description</th>
     </tr>
   </thead>
   <tbody>
