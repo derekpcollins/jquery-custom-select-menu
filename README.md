@@ -48,10 +48,42 @@ And turn it into this:
 
 The following are user-configurable options:
 
-- `menuClass`: The class name for the custom select menu div. Default value: `custom-select-menu`
-- `openedClass`: The class name for the custom select menu div. Default value: `opened`
-- `selectedClass`: The class given to the list item when an option has been selected. Default value: `selected`
-- `selectionMadeClass`: The class given to the label when an option has been selected. Default value: `selection-made`
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Default Value</th>
+      <th>Type</th>
+      <th width="320">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>menuClass</code></td>
+      <td>custom-select-menu</td>
+      <td>String</td>
+      <td>The class name for the custom select menu div.</td>
+    </tr>
+    <tr>
+      <td><code>openedClass</code></td>
+      <td>opened</td>
+      <td>String</td>
+      <td>The class name given to the custom select menu label when the menu is open.</td>
+    </tr>
+    <tr>
+      <td><code>selectedClass</code></td>
+      <td>selected</td>
+      <td>String</td>
+      <td>The class given to the list item when an option has been selected.</td>
+    </tr>
+    <tr>
+      <td><code>selectionMadeClass</code></td>
+      <td>selection-made</td>
+      <td>String</td>
+      <td>The class given to the label when an option has been selected.</td>
+    </tr>
+  </tbody>
+</table>
 
 You can set these options by passing them to the `customSelectMenu()` method:
 
