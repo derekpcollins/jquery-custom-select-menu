@@ -1,4 +1,6 @@
-# Custom Select Menu jQuery Plugin [![Build Status](https://travis-ci.org/derekpcollins/jquery-custom-select-menu.png?branch=master)](https://travis-ci.org/derekpcollins/jquery-custom-select-menu)
+# Custom Select Menu jQuery Plugin
+
+[![Build Status](https://travis-ci.org/derekpcollins/jquery-custom-select-menu.png?branch=master)](https://travis-ci.org/derekpcollins/jquery-custom-select-menu)
 
 A jQuery Plugin that allows you to create custom select menus. To see the custom menu in action, [check out the demo](http://derekpcollins.com/jquery-custom-select-menu/).
 
