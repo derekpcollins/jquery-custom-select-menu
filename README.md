@@ -54,7 +54,7 @@ The following are user-configurable options:
       <th>Option</th>
       <th>Default Value</th>
       <th>Type</th>
-      <th width="360">Description</th>
+      <th width="380">Description</th>
     </tr>
   </thead>
   <tbody>
@@ -89,9 +89,9 @@ You can set these options by passing them to the `customSelectMenu()` method:
 
 ```javascript
 $('select').customSelectMenu({
-  menuClass          : 'my-menu',
-  openedClass        : 'shown',
-  selectedClass      : 'active',
+  menuClass : 'my-menu',
+  openedClass : 'shown',
+  selectedClass : 'active',
   selectionMadeClass : 'has-been-selected'
 });
 ```
