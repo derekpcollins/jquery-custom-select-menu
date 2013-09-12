@@ -26,7 +26,7 @@
       selection.addClass( settings.selectedClass );
 
       // Pass the value to the hidden input
-      hiddenInput.val( customOptionValue );
+      hiddenInput.val( customOptionValue ).trigger('change');
 
       // Update the label
       selection.parent().parent().find( 'label' ).text( customOptionText );
