@@ -80,6 +80,7 @@
       if( selectId ) {
         newContainer.attr( 'id', selectId );
         $this.removeAttr('id');
+        $this.removeAttr('name');
       }
 
       // Set up the first selected option and create the label
