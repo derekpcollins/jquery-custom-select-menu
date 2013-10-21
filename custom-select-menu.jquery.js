@@ -79,6 +79,9 @@
         $this.removeAttr('id');
       }
 
+      // Create a hidden input field so we can keep track of which option they choose
+      newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );
+      
       // Set up the first selected option and create the label
       if( $this.find( ':selected' ) ) {
         // Find the selected option if one exists...
@@ -110,9 +113,6 @@
 
       // Append an unordered list to contain the custom menu options and hide it
       newList = $( '<ul data-select-name="' + selectName + '">' ).hide();
-
-      // Create a hidden input field so we can keep track of which option they choose
-      newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );
 
       // Add the custom select menu container to the DOM after the original select menu
       // and append the label, list and hidden input to it
