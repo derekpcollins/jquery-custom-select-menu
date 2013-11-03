@@ -86,7 +86,7 @@
       if( $this.find( ':selected' ) ) {
         // Find the selected option if one exists...
         selectedOption = $this.find( ':selected' );
-        selectedOptionValue = selectedOption.attr('value');
+        selectedOptionValue = selectedOption.attr( 'value' );
 
         // Set the label text to the selected option text
         labelText = selectedOption.text();
