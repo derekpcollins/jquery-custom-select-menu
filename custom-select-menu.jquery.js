@@ -19,6 +19,10 @@
           customOptionText = selection.text(), /* Get the option text (for the label) */
           hiddenInput = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */
 
+      selection.closest('.custom-select-menu').prev()
+        .val(customOptionValue)
+        .trigger('change');
+
       // Remove 'selected' class from currently selected option
       selection.parent().find( '.' + settings.selectedClass ).removeClass( settings.selectedClass );
 
@@ -47,7 +51,7 @@
       } else {
         selection.parent().parent().find( 'label' ).removeClass( settings.openedClass );
       }
-      
+
     }
 
     return this.each(function() {
@@ -63,7 +67,7 @@
           newOption,
           selectedOption,
           selectedOptionValue;
-          
+
 
       // Hide the original select menu
       $this.hide();
@@ -86,17 +90,17 @@
       if( $this.find( ':selected' ) ) {
         // Find the selected option if one exists...
         selectedOption = $this.find( ':selected' );
-        selectedOptionValue = selectedOption.attr( 'value' );
+        selectedOptionValue = selectedOption.attr('value');
 
         // Set the label text to the selected option text
         labelText = selectedOption.text();
-        
+
         // Create a label to show the selected option
         if( !selectedOptionValue ) {
           newLabel = $( '<label>' + labelText + '</label>' );
         } else {
           newLabel = $( '<label class="' + settings.selectionMadeClass + '">' + labelText + '</label>' );
-          
+
           // Add the selected option value to the hidden input
           newHiddenInput.val( selectedOptionValue );
         }
@@ -114,6 +118,7 @@
       // Append an unordered list to contain the custom menu options and hide it
       newList = $( '<ul data-select-name="' + selectName + '">' ).hide();
 
+
       // Add the custom select menu container to the DOM after the original select menu
       // and append the label, list and hidden input to it
       $this.after( newContainer.append( newLabel, newList, newHiddenInput ) );
@@ -121,14 +126,18 @@
       // Loop through all the options and create li's to append to the custom menu
       $this.find( 'option' ).each(function(){
         var optionName = $(this).text(),
-            optionValue = $(this).attr( 'value' ),
-            markSelected = (optionName === labelText) ? ' class="' + settings.selectedClass + '"' : '';
+            optionValue = $(this).attr( 'value' );
+
+            var optionClasses = this.className || '';
+            if ( optionName == labelText ) {
+              optionClasses += ' ' + settings.selectedClass;
+            }
 
         // Make sure we have a value before setting one on the newOption
         if( !optionValue ) {
-          newOption = $( '<li' + markSelected + '>' + optionName + '</li>' );
+          newOption = $( '<li class="' + optionClasses + '">' + optionName + '</li>' );
         } else {
-          newOption = $( '<li data-option-value="' + optionValue + '"' + markSelected + '>' + optionName + '</li>' );
+          newOption = $( '<li data-option-value="' + optionValue + '" class="' + optionClasses + '">' + optionName + '</li>' );
         }
 
         newList.append( newOption );
