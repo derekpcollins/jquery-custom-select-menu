@@ -2,7 +2,6 @@
 
   'use strict';
   $.fn.customSelectMenu = function( options ) {
-    var $this = $(this);
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
@@ -12,7 +11,7 @@
       selectionMadeClass : 'selection-made' /* The class given to the label when an option has been selected */
     }, options);
 
-    function updateMenu( selection ) {
+    function updateMenu(selection, $this) {
       // Whenever you click on a menu item or press return/enter, we need to update a few things...
       // Set up some vars...
       var /*customMenuName = selection.parent().attr( 'data-select-name' ), 
@@ -57,7 +56,7 @@
 
     return this.each(function() {
 
-      var
+      var $this = $(this),
           selectName = $this.attr( 'name' ), /* Get the name of the original menu */
           selectId = $this.attr( 'id' ), /* Get the id of the original menu */
           newHiddenInput,
@@ -151,7 +150,7 @@
 
         // When an option is clicked, update the menu with that option
         if( target.is( 'li' ) ){
-          updateMenu( target );
+          updateMenu( target, $this );
         }
       });
 
@@ -190,7 +189,7 @@
 
         // Pressing return/enter updates and closes the menu
         if( e.keyCode === 13 ) {
-          updateMenu( $(this).find( '.' + settings.selectedClass ) );
+          updateMenu( $(this).find( '.' + settings.selectedClass ) , $this);
         }
       });
 
