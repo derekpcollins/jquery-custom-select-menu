@@ -1,7 +1,8 @@
 (function( $ ) {
 
-  "use strict";
+  'use strict';
   $.fn.customSelectMenu = function( options ) {
+    var $this = $(this);
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
@@ -14,10 +15,13 @@
     function updateMenu( selection ) {
       // Whenever you click on a menu item or press return/enter, we need to update a few things...
       // Set up some vars...
-      var customMenuName = selection.parent().attr( 'data-select-name' ), /* Get the name of the menu */
+      var /*customMenuName = selection.parent().attr( 'data-select-name' ), 
+          NEVER USED
+          Get the name of the menu */
           customOptionValue = selection.attr( 'data-option-value' ), /* Get the option value */
-          customOptionText = selection.text(), /* Get the option text (for the label) */
-          hiddenInput = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */
+          customOptionText = selection.text(); /* Get the option text (for the label) */
+          
+          //hiddenInput = $('input[name="' + customMenuName + '"]'); /* Get the hidden input */
 
       // Remove 'selected' class from currently selected option
       selection.parent().find( '.' + settings.selectedClass ).removeClass( settings.selectedClass );
@@ -26,13 +30,14 @@
       selection.addClass( settings.selectedClass );
 
       // Pass the value to the hidden input
-      hiddenInput.val( customOptionValue );
+      //hiddenInput.val( customOptionValue );
+      $this.val(customOptionValue).change();
 
       // Update the label
       selection.parent().parent().find( 'label' ).text( customOptionText );
 
       // If the hidden input value isn't empty give the label a class to show it was selected
-      if(hiddenInput.val() !== '') {
+      if($this.val() !== '') {
         selection.parent().parent().find( 'label' ).addClass( settings.selectionMadeClass );
       } else {
         selection.parent().parent().find( 'label' ).removeClass( settings.selectionMadeClass );
@@ -52,7 +57,7 @@
 
     return this.each(function() {
 
-      var $this = $(this),
+      var
           selectName = $this.attr( 'name' ), /* Get the name of the original menu */
           selectId = $this.attr( 'id' ), /* Get the id of the original menu */
           newHiddenInput,
@@ -80,7 +85,7 @@
       }
 
       // Create a hidden input field so we can keep track of which option they choose
-      newHiddenInput = $( '<input type="hidden" name="' + selectName + '" value="" />' );
+      newHiddenInput = $this;
 
       // Set up the first selected option and create the label
       if( $this.find( ':selected' ) ) {
@@ -98,7 +103,7 @@
           newLabel = $( '<label class="' + settings.selectionMadeClass + '">' + labelText + '</label>' );
           
           // Add the selected option value to the hidden input
-          newHiddenInput.val( selectedOptionValue );
+          
         }
 
       } else {
@@ -116,7 +121,7 @@
 
       // Add the custom select menu container to the DOM after the original select menu
       // and append the label, list and hidden input to it
-      $this.after( newContainer.append( newLabel, newList, newHiddenInput ) );
+      $this.after( newContainer.append( newLabel, newList ) );
 
       // Loop through all the options and create li's to append to the custom menu
       $this.find( 'option' ).each(function(){
