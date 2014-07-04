@@ -17,9 +17,9 @@ describe('Custom Select Menu', function() {
     expect( $('div.custom-select-menu') ).toExist();
   });
 
-  it('creates a hidden input', function() {
+  /*it('creates a hidden input', function() {
     expect( $('input:hidden') ).toExist();
-  });
+  });*/
 
   it('creates a label', function() {
     expect( $('.custom-select-menu label') ).toExist();
@@ -286,15 +286,15 @@ describe('Custom Select Menu', function() {
       expect( nextItem ).toHaveClass( 'selected' );
     });
 
-    it('passes data-option-value to the hidden input when clicked', function() {
+    it('passes data-option-value to the select input when clicked', function() {
       var listItem = $('.custom-select-menu li[data-option-value="red"]');
       listItem.click();
-      var inputValue = $('input:hidden').val();
+      var inputValue = $('select').val();
 
       expect( inputValue ).toEqual( listItem.attr( 'data-option-value' ) );
     });
 
-    it('passes data-option-value to the hidden input when enter/return is pressed', function() {
+    it('passes data-option-value to the select input when enter/return is pressed', function() {
       // First simulate the down arrow being pressed to select the next option
       var originalSelectedItem = $('.custom-select-menu li.selected');
       var nextItem = originalSelectedItem.next();
@@ -312,7 +312,7 @@ describe('Custom Select Menu', function() {
 
       $('.custom-select-menu').trigger(e2);
 
-      var inputValue = $('input:hidden').val();
+      var inputValue = $('select').val();
 
       expect( inputValue ).toEqual( nextItem.attr( 'data-option-value' ) );
     });
